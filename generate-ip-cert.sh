@@ -32,5 +32,10 @@ subjectAltName = @alt_names
 IP.1 = $IP
 " > san.cnf
 
+# Create PKCS#5 private key and X.509 certificate
 openssl req -x509 -nodes -days 730 -newkey rsa:2048 -keyout key.pem -out cert.pem -config san.cnf
+
+# Convert PKCS#5 private key into a unencrypted PKCS#8 private key
+openssl pkcs8 -in key.pem -topk8 -nocrypt -out pkcs8-key.pem
+
 rm san.cnf
