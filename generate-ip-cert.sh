@@ -37,6 +37,6 @@ openssl genrsa -out key.pem 2048
 # Create X.509 certificate
 openssl req -x509 -nodes -days 730 -key key.pem -out cert.pem -config san.cnf
 # Convert PKCS#5 RSA private key into a unencrypted PKCS#8 private key
-openssl pkcs8 -in key.pem -topk8 -nocrypt -out pkcs8-key.pem
+openssl pkcs8 -in key.pem -topk8 -nocrypt -out pkcs8-key.pem -inform PEM -outform PEM
 
 rm san.cnf
