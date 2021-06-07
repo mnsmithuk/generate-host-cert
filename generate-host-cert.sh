@@ -1,10 +1,8 @@
 #!/bin/sh
 
-IP=$(echo $1 | egrep -o "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$")
-
-if [ ! $IP ]
+if [ $1 == "" ]
 then
-    echo "Usage: generate-ip-cert.sh 127.0.0.1"
+    echo "Usage: generate-host-cert.sh fqdn"
     exit 1
 fi
 
@@ -20,7 +18,7 @@ countryName = XX
 stateOrProvinceName = N/A
 localityName = N/A
 organizationName = Self-signed certificate
-commonName = $IP: Self-signed certificate
+commonName = $1: Self-signed certificate
 
 [req_ext]
 subjectAltName = @alt_names
@@ -29,7 +27,7 @@ subjectAltName = @alt_names
 subjectAltName = @alt_names
 
 [alt_names]
-IP.1 = $IP
+DNS = $1
 " > san.cnf
 
 # Create PKCS#5 RSA private key
